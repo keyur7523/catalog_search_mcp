@@ -1,0 +1,14 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Data and generated artifacts
+data/
+chroma/
+results/
+*.parquet
+
+# Secrets and OS files
+.env
+.DS_Store
