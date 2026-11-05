@@ -1,0 +1,7 @@
+{
+  "method": "vector",
+  "candidates": null,
+  "queries": 379,
+  "hit_rate@10": 0.7704485488126649,
+  "mrr@10": 0.6169347070402479
+}

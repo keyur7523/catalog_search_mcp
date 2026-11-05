@@ -1,0 +1,7 @@
+{
+  "method": "rerank",
+  "candidates": 20,
+  "queries": 379,
+  "hit_rate@10": 0.862796833773087,
+  "mrr@10": 0.7535107006742888
+}

@@ -1,0 +1,7 @@
+{
+  "method": "hybrid",
+  "candidates": null,
+  "queries": 379,
+  "hit_rate@10": 0.862796833773087,
+  "mrr@10": 0.6989686727813376
+}
