@@ -2,7 +2,7 @@ import json, time, os
 import pandas as pd
 import chromadb
 from sentence_transformers import SentenceTransformer
-from hybrid import hybrid_search
+from hybrid import hybrid_search, rerank_search
 
 queries = pd.read_csv("data/WANDS/dataset/query.csv", sep="\t")
 labels = pd.read_csv("data/WANDS/dataset/label.csv", sep="\t")
@@ -19,7 +19,8 @@ for _, row in queries.iterrows():
         continue
     #  res = col.query(query_embeddings=model.encode([row["query"]], normalize_embeddings=True).tolist(), n_results=K)
     # ids = res["ids"][0]
-    ids = hybrid_search(row["query"])
+    # ids = hybrid_search(row["query"])
+    ids = rerank_search(row["query"])
     n += 1
     if any(i in relevant for i in ids):
         hits += 1
@@ -28,7 +29,7 @@ for _, row in queries.iterrows():
             rr += 1 / rank
             break
 
-summary = {"method": "hybrid_rrf", "queries": n, f"hit_rate@{K}": hits / n, f"mrr@{K}": rr / n}
+summary = {"method": "hybrid_rerank", "queries": n, f"hit_rate@{K}": hits / n, f"mrr@{K}": rr / n}
 print(summary)
 os.makedirs("results", exist_ok=True)
 # json.dump(summary, open(f"results/{int(time.time())}_vector_only.json", "w"), indent=2)
