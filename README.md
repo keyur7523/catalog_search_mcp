@@ -124,13 +124,13 @@ python run_eval.py --method vector
 python run_eval.py --method hybrid
 python run_eval.py --method rerank --candidates 50
 python latency.py
+```
 
 **Connect to Claude Code:**
 ```bash
 claude mcp add catalog-search -- $(pwd)/.venv/bin/python $(pwd)/mcp_server.py
 ```
 Or test interactively with `mcp dev mcp_server.py` (MCP Inspector).
-
 ## Stack
 
 Python · pandas · sentence-transformers (`all-MiniLM-L6-v2`, `ms-marco-MiniLM-L-6-v2`) · ChromaDB · rank_bm25 · MCP Python SDK
