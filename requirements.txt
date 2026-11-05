@@ -2,4 +2,4 @@ pandas
 pyarrow
 sentence-transformers
 chromadb
-rank_bm25
+rank_bm2mcp[cli]<2
