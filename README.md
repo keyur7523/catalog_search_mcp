@@ -116,11 +116,14 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 git clone https://github.com/wayfair/WANDS.git data/WANDS
 
-python ingest.py      # clean data -> data/products_clean.parquet
-python embed.py       # embed 43k products into Chroma
+python ingest.py
+python embed.py
 python search.py gray dining set for 4
-python run_eval.py    # hit rate and MRR on 379 labeled queries
-```
+
+python run_eval.py --method vector
+python run_eval.py --method hybrid
+python run_eval.py --method rerank --candidates 50
+python latency.py
 
 **Connect to Claude Code:**
 ```bash
