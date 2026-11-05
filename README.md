@@ -10,15 +10,28 @@ BM25 + vector retrieval, fused with reciprocal rank fusion and reranked by a cro
 
 | Method | Hit rate@10 | MRR@10 |
 |---|---|---|
-| Vector only (MiniLM, cosine) | 0.770 | 0.616 |
-| Hybrid (BM25 + vector, RRF) | 0.855 | 0.697 |
-| **Hybrid + cross-encoder rerank** | **0.876** | **0.751** |
+| Vector only (MiniLM, cosine) | 0.770 | 0.617 |
+| Hybrid (BM25 + vector, RRF) | 0.863 | 0.699 |
+| Rerank @20 candidates | 0.863 | 0.754 |
+| Rerank @50 candidates (default) | 0.876 | 0.751 |
+| **Rerank @100 candidates** | **0.879** | **0.754** |
 
 - **Hit rate@10:** share of queries with at least one product a human labeled "Exact" in the top 10.
 - **MRR@10:** how high the first correct product ranks (1.0 = always first).
 
-Going from vector-only to the full pipeline raised hit rate by **10.6 points** and MRR by **22%**.
+Going from vector-only to rerank@50 raised hit rate by **10.6 points** and MRR by **22%**. Going from 50 to 100 candidates barely moves the needle, so 50 is the default.
 
+### Latency (DGX, avg of 5 queries)
+
+| Stage | Avg ms |
+|---|---|
+| Embed query | 2 |
+| Vector search | 4 |
+| BM25 | 44 |
+| Rerank (top 50) | 92 |
+| **Total** | **142** |
+
+Rerank is ~65% of the cost, which is why the candidate count tradeoff matters. Measured with `python latency.py`.
 ### Tuning: how many candidates to rerank
 
 | Candidates reranked | Hit rate@10 | MRR@10 |
