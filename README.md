@@ -21,7 +21,7 @@ BM25 + vector retrieval, fused with reciprocal rank fusion and reranked by a cro
 
 Going from vector-only to rerank@50 raised hit rate by **10.6 points** and MRR by **22%**. Going from 50 to 100 candidates barely moves the needle, so 50 is the default.
 
-### Latency (DGX, avg of 5 queries)
+### Latency (DGX GPU, avg of 5 queries)
 
 | Stage | Avg ms |
 |---|---|
@@ -32,6 +32,7 @@ Going from vector-only to rerank@50 raised hit rate by **10.6 points** and MRR b
 | **Total** | **142** |
 
 Rerank is ~65% of the cost, which is why the candidate count tradeoff matters. Measured with `python latency.py`.
+
 ### Tuning: how many candidates to rerank
 
 | Candidates reranked | Hit rate@10 | MRR@10 |
