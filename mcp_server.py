@@ -8,6 +8,7 @@ by_id = df.set_index(df["product_id"].astype(str))
 @mcp.tool()
 def search_products(query: str, k: int = 5) -> list[dict]:
     """Search the furniture and home catalog. Use for any request to find products by description, style, color, material, or name."""
+    k = max(1, min(k, 20))
     results = []
     for pid in rerank_search(query, k=k):
         r = by_id.loc[pid]
@@ -22,6 +23,9 @@ def search_products(query: str, k: int = 5) -> list[dict]:
 @mcp.tool()
 def get_product(product_id: str) -> dict:
     """Get full details for one product by its product_id."""
+    if product_id not in by_id.index:
+        return {"error": f"unknown product_id: {product_id}"}
+        
     r = by_id.loc[product_id]
     return {"product_id": product_id, "name": r["product_name"],
             "category": r["category hierarchy"], "features": r["features_clean"],

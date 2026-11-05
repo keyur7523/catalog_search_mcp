@@ -1,4 +1,5 @@
 import re
+import sys
 import pandas as pd
 import chromadb
 from rank_bm25 import BM25Okapi
@@ -10,7 +11,7 @@ ids = df["product_id"].astype(str).tolist()
 def tok(t):
     return re.findall(r"[a-z0-9]+", t.lower())
 
-print("Building BM25 index...")
+print("Building BM25 index...", file=sys.stderr)
 bm25 = BM25Okapi([tok(t) for t in df["search_text"]])
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
